@@ -47,6 +47,12 @@ export function createHttpServer(config: ServeConfig): express.Application {
     setupProxies(app);
   }
 
+  // FORK: This is the only code that (ATTOW) differs from ionic-app-scripts#master.
+  // For local development, this creates a crawler friendly URL (path-based routing, aka no "#").
+  // REF: https://github.com/ionic-team/ionic/issues/10565#issuecomment-355055546
+  app.all('/*', serveIndex);
+  // END-FORK.
+
   return app;
 }
 
